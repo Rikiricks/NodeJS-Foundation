@@ -1,1 +1,1 @@
-message=riki+ricks
+message=riki&Age=28

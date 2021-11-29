@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { request } = require("http");
 
 requestHandler = (req,res) =>{
     if(req.url === "/" && req.method === "GET"){
@@ -26,7 +25,7 @@ requestHandler = (req,res) =>{
         req.on('end',()=>{
             const parseBody = Buffer.concat(body).toString();
             // fs.writeFileSync("message.txt",parseBody); // Sync wait for write the whole file
-            fs.writeFile("messageNew.txt", parseBody, (err) => {
+            fs.writeFile("message.txt", parseBody, (err) => {
                 res.statusCode = 302;
                 res.setHeader("Location","/");
                 return res.end();
