@@ -11,7 +11,10 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(express.json());
 
-app.use("/admin",adminRoutes);
+app.set("view engine", "pug"); //define put as templating engine
+app.set("views","views");
+
+app.use("/admin",adminRoutes.router);
 app.use(shopRoutes);
 
 
@@ -27,7 +30,6 @@ app.use(shopRoutes);
 //     res.redirect("/");
 // });
 
-
 // app.use('/',(req,res,next)=>{
 //     res.send("<h1>Hello</h1>");   
     
@@ -36,7 +38,8 @@ app.use(shopRoutes);
 // const server = http.createServer(app);
 // server.listen(3000);
 app.use((req,res,next)=>{
-    res.status(404).sendFile(path.join(__dirname,"views","404.html"));
+    //res.status(404).sendFile(path.join(__dirname,"views","404.html"));
+    res.status(404).render("404",{pageTitle: "404"})
 })
 app.listen(3000)
 
