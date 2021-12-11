@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(express.json());
 
-app.set("view engine", "pug"); //define put as templating engine
+app.set("view engine", "ejs"); //define put as templating engine i.e. pug
 app.set("views","views");
 
 app.use("/admin",adminRoutes.router);
