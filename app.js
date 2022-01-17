@@ -19,7 +19,6 @@ app.use(shopRoutes);
 
 const productsController = require("./controllers/error");
 
-
 // app.use('/add-product',(req,res,next)=>{
 //     console.log("add-product");
 //     res.send("<form action='/product' method='POST'><input type='text' name='message'/><input type='number' name='Age'/><button type='submit'>Send</button></form>");
@@ -50,5 +49,5 @@ const productsController = require("./controllers/error");
 
 app.use(productsController.get404);
 
-app.listen(3000)
+app.listen(3000);
 
