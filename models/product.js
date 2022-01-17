@@ -1,4 +1,5 @@
 const products = [];
+const { json } = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const p = path.join(path.dirname(require.main.filename),
@@ -25,7 +26,8 @@ const getProductsFromFile = cb => {
 
 
 module.exports = class Product {
-    constructor(title, imageUrl, description, price) {
+    constructor(id,title, imageUrl, description, price) {
+        this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
         this.description = description;
@@ -36,12 +38,24 @@ module.exports = class Product {
 
 
     save() {
-        this.id = Math.random().toString();
+      
         getProductsFromFile(products => {
+           
+            if(this.id){
+                const index = products.findIndex(a=>a.id === this.id);
+                const updatedPrdocut = [...products];
+                updatedPrdocut[index] = this;
+                fs.writeFile(p,JSON.stringify(updatedPrdocut), (err)=>{
+                    console.log(err);
+                });
+            }
+            else{
+                this.id = Math.random().toString();
             products.push(this);
             fs.writeFile(p, JSON.stringify(products), (err) => {
                 console.log(err);
             });
+        }
         });
     }
 
