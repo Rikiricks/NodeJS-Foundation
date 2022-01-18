@@ -53,3 +53,11 @@ exports.getProducts = (req, res, next) => {
     {prods : products,
      pageTitle: 'All Products', path: "admin/products"})});
 }
+
+exports.deleteProduct = (req, res, next) =>{
+    const id = req.body.productId;
+    console.log("delete: ", id);
+    Product.deleteById(id);
+    res.redirect("/admin/products");
+
+}

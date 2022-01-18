@@ -2,6 +2,7 @@ const products = [];
 const { json } = require("body-parser");
 const fs = require("fs");
 const path = require("path");
+const Cart = require("./cart");
 const p = path.join(path.dirname(require.main.filename),
     'data',
     'products.json');
@@ -14,7 +15,7 @@ const getProductsFromFile = cb => {
             cb([]);
         }
         try {
-            console.log("parsing");
+           
             const data = JSON.parse(fileContent);
             cb(data);
         } catch (err) {
@@ -70,4 +71,19 @@ module.exports = class Product {
             cb(product);
         })
     }
+
+    static deleteById(id){
+        getProductsFromFile(products=>{
+            const product = products.find(a=>a.id === id);
+            const newProducts = products.filter(a=>a.id !== id);
+            fs.writeFile(p, JSON.stringify(newProducts),err=>{
+                if(!err){
+                    Cart.deleteProduct(id, product.price);
+                };
+            })
+        })
+    }
+
+    
+    
 }
