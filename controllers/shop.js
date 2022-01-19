@@ -70,3 +70,13 @@ exports.getCheckout = (req,res,next) => {
 exports.getOrders = (req,res,next) => {
     res.render("shop/orders",{pageTitle: "Orders", path:"/orders"});
 }
+
+exports.deleteCartItem = (req,res,next) =>{
+    const id = req.body.productId;
+    Product.findById(id, product=>{
+        Cart.deleteProduct(id, product.price);
+        res.redirect("/cart");
+    })
+    
+    
+}
